@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: hackathon-billing-prediction-v4
+  name: hackathon-billing-prediction-v5
   annotations:
     scenarios.ai.sap.com/description: "Hackathon project to predict billing dates"
-    scenarios.ai.sap.com/name: "Hack-P-B-D-v4"
+    scenarios.ai.sap.com/name: "Hack-P-B-D-v5"
     executables.ai.sap.com/description: "First Check"
-    executables.ai.sap.com/name: "Hack-AI-pipeline-v4"
+    executables.ai.sap.com/name: "Hack-AI-pipeline-v5"
   labels:
-    scenarios.ai.sap.com/id: "Predict-Billing-Dates-v4"
-    executables.ai.sap.com/id: "Start-v4"
+    scenarios.ai.sap.com/id: "Predict-Billing-Dates-v5"
+    executables.ai.sap.com/id: "Start-v5"
     ai.sap.com/version: "1.0.0"
 spec:
 

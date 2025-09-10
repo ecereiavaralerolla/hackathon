@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: hackathon-billing-prediction-v4
+  annotations:
+    scenarios.ai.sap.com/description: "Hackathon project to predict billing dates"
+    scenarios.ai.sap.com/name: "Hack-P-B-D-v4"
+    executables.ai.sap.com/description: "First Check"
+    executables.ai.sap.com/name: "Hack-AI-pipeline-v4"
+  labels:
+    scenarios.ai.sap.com/id: "Predict-Billing-Dates-v4"
+    executables.ai.sap.com/id: "Start-v4"
+    ai.sap.com/version: "1.0.0"
+spec:
+
+  imagePullSecrets:
+    - name: ai-core-docker  #ai-core-docker-github  #ai-core-docker-docker
+  entrypoint: hackathon-ai
+  templates:
+    - name: hackathon-ai
+      metadata:
+        labels:
+          ai.sap.com/resourcePlan: starter
+      container:
+        image: "ecereiavar/autoforecast_bd:1.0.0"  #"ghcr.io/ecereiavaralerolla/intelligent-forcasting:1.0.0"   #"ecereiavar/intelligent-forcasting:1.0.0"		
+        env:
+            - name: HANA_VECTOR_USER
+              valueFrom:
+                secretKeyRef:
+                  name: credentialshanacloud
+                  key: HANA_VECTOR_USER
+            - name: HANA_VECTOR_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: credentialshanacloud
+                  key: HANA_VECTOR_PASS
+            - name: HANA_HOST_VECTOR
+              valueFrom:
+                secretKeyRef:
+                  name: credentialshanacloud
+                  key: HANA_HOST_VECTOR
+        imagePullPolicy: IfNotPresent  #Always
+        command:
+          - python
+          - 'autoforecast.py'
+        args:
+          - >
+            "raise ValueError("Errore")"
